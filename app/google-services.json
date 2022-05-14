@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "481434505672",
+    "project_id": "iot-rpi-blind",
+    "storage_bucket": "iot-rpi-blind.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481434505672:android:1aad89316a215b91e530fd",
+        "android_client_info": {
+          "package_name": "com.likefirst.iot_rpi_blind"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "481434505672-rjmbj6lak5va4iou1ikp8mu7sk1s47i8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDC3ct_Ahveuy_yUiMlmty5nyndbH0WKTs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "481434505672-rjmbj6lak5va4iou1ikp8mu7sk1s47i8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
