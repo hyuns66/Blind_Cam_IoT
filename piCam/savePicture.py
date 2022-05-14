@@ -28,7 +28,7 @@ def execute_camera():
     filename = "_".join([subtitle, suffix])
 
     camera = PiCamera()
-    camera.capture('/home/pi/Images/' + filename)
+    camera.capture('pictures/' + filename)
     fileUpload(filename)
 
 execute_camera() #캡쳐 후 Image파일에 업로드
