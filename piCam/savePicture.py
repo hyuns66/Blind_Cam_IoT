@@ -14,12 +14,12 @@ default_app = firebase_admin.initialize_app(cred, {
 bucket = storage.bucket()
 
 def fileUpload(file):
-    blob = bucket.blob('Images/'+file)
+    blob = bucket.blob('man/'+file)
     new_token = uuid4()
     metadata = {"firebaseStorageDownloadTokens": new_token}
     blob.metadata = metadata
 
-    blob.upload_from_filename(filename='./Images/'+file, content_type='image/jpeg')
+    blob.upload_from_filename(filename='./man/'+file, content_type='image/jpeg')
     print(blob.public_url)
 
 def execute_camera():
