@@ -19,7 +19,7 @@ def fileUpload(file):
     metadata = {"firebaseStorageDownloadTokens": new_token}
     blob.metadata = metadata
 
-    blob.upload_from_filename(filename='./man/'+file, content_type='image/jpeg')
+    blob.upload_from_filename(filename='pictures/'+file, content_type='image/jpeg')
     print(blob.public_url)
 
 def execute_camera():
