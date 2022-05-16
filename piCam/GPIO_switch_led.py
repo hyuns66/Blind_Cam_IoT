@@ -42,10 +42,10 @@ GPIO.setwarnings(False)
 GPIO.setup(trigger, GPIO.OUT)
 GPIO.setup(echo, GPIO.IN)
 
-try:
-    while True:
-        StartTime = time.time()
-        StopTime = time.time()
+while True:
+    try:
+        GPIO.output(trigger, False)
+        time.sleep(0.5)
         GPIO.output(trigger, True)
         time.sleep(0.00001)
         GPIO.output(trigger, False)
