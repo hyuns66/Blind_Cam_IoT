@@ -82,7 +82,7 @@ def pir_detect():
             print("nooo,,,,,,,,,,,,,")
 
 def button_pressed_callback(channel):
-    faceCascade = cv2.CascadeClassifier('Cascades/haarcascade_frontalface_default.xml')
+    faceCascade = cv2.CascadeClassifier('haarcascade_frontface.xml')
     cap = cv2.VideoCapture(0)
     cap.set(3, 640)  # set Width
     cap.set(4, 480)  # set Height
