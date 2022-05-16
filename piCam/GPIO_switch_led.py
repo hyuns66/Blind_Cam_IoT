@@ -50,18 +50,18 @@ while True:
         time.sleep(0.00001)
         GPIO.output(trigger, False)
 
-    while GPIO.input(echo) == 0:
-        StartTime = time.time()
-        print("asdf")
+        while GPIO.input(echo) == 0:
+            StartTime = time.time()
+            print("asdf")
 
-    while GPIO.input(echo) == 1:
-        StartTime = time.time()
-        print("fdas")
+        while GPIO.input(echo) == 1:
+            StartTime = time.time()
+            print("fdas")
 
-    TimeElapsed = StopTime - StartTime
-    distnace = round((TimeElapsed * 34300) / 2, 2)
-    print("Distance = ", distance, "cm")
-    time.sleep(1)
+        TimeElapsed = StopTime - StartTime
+        distnace = round((TimeElapsed * 34300) / 2, 2)
+        print("Distance = ", distance, "cm")
+        time.sleep(1)
 
-except KeyboardInterrupt:
-    sys.exit(0)
+    except KeyboardInterrupt:
+        sys.exit(0)
