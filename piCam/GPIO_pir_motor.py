@@ -133,7 +133,6 @@ def button_pressed_callback(channel):
             cv2.destroyAllWindows()
             motor_rotate()
             execute_camera()
-            fileUpload(filename)
 
 
 def set_switch_interrupt():
