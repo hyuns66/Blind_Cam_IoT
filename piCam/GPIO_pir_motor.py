@@ -128,6 +128,10 @@ def button_pressed_callback(channel):
         # 인식된 얼굴 갯수를 출력
         print(len(faces))
 
+        if len(faces) > 0:
+            motor_rotate()
+            sys.exit(0)
+
         # 인식된 얼굴에 사각형을 출력한다
         for (x, y, w, h) in faces:
             cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
