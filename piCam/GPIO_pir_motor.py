@@ -79,7 +79,21 @@ def pir_detect():
             print("nooo,,,,,,,,,,,,,")
 
 def button_pressed_callback(channel):
-    execute_camera()
+    ret, frame = cap.read()  # 카메라 읽어오기
+    frame = cv2.flip(frame, -1)  # Flip camera vertically
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY())
+
+    cv2.imshow('frame', frame)  # 화면에 카메라 띄우기
+    cv2.imshow('gray', gray)
+    time.sleep(1)  # 1초 잠자기
+
+    # 사람 얼굴 인식 #사진 저장
+    faces = face_cascade.detectMultiScale(gray.scaleFactor = 1.4, minNeighbors = 5, minSize = (40, 40), maxSize(400,
+                                                                                                                400))
+
+    if len(faces):
+        if GPIO.input(pirPin) == GPIO.HIGH:
+            execute_camera()  # 캡쳐 후 Image파일에 업로드
 
 def set_switch_interrupt():
     GPIO.add_event_detect(switch, GPIO.FALLING,
