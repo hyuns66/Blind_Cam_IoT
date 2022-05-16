@@ -135,7 +135,7 @@ def isGone(cap):
     while (curtime - startTime < 5):
         # frame 별로 capture 한다
         ret, frame = cap.read()
-        sleep(0.001)
+        time.sleep(0.001)
         curtime = time.time()
 
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
