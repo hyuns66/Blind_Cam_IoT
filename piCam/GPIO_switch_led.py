@@ -59,7 +59,7 @@ while True:
             StartTime = time.time()
 
         TimeElapsed = StopTime - StartTime
-        distnace = round((TimeElapsed * 34300) / 2, 2)
+        distance = round((TimeElapsed * 34300) / 2, 2)
         print("Distance = ", distance, "cm")
         time.sleep(1)
 
