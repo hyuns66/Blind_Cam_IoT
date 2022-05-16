@@ -38,14 +38,13 @@ def main():
 def motor_rotate():
 
     try:
-        while 1:
-            for cnt in range(0, step):
-                GPIO.output(motor_in1, sig[0])
-                GPIO.output(motor_in2, sig[1])
-                GPIO.output(motor_in3, sig[2])
-                GPIO.output(motor_in4, sig[3])
-                time.sleep(0.002)
-                sig.rotate(dir)
+        for cnt in range(0, step):
+            GPIO.output(motor_in1, sig[0])
+            GPIO.output(motor_in2, sig[1])
+            GPIO.output(motor_in3, sig[2])
+            GPIO.output(motor_in4, sig[3])
+            time.sleep(0.002)
+            sig.rotate(dir)
 
     except KeyboardInterrupt:
         sys.exit(0)
@@ -65,7 +64,7 @@ def pir_detect():
             print("nooo,,,,,,,,,,,,,")
 
 def button_pressed_callback(channel):
-    print("Button pressed!")
+    motor_rotate()
 
 def switch_read():
     GPIO.add_event_detect(switch, GPIO.FALLING,
