@@ -2,6 +2,21 @@ import RPi.GPIO as GPIO
 import time
 import sys
 from collections import deque
+from picamera import PiCamera
+import datetime
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import storage
+from uuid import uuid4
+
+# 파이어베이스 프로젝트 연동
+PROJECT_ID = "iot-rpi-blind"
+
+cred = credentials.Certificate("./serviceAccountKey.json")
+default_app = firebase_admin.initialize_app(cred, {
+    'storageBucket': f"{PROJECT_ID}.appspot.com"
+})
+bucket = storage.bucket()
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
