@@ -4,6 +4,8 @@ import sys
 from collections import deque
 
 GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+
 # pir 센서 핀
 pir_signal = 17
 # 모터 핀
@@ -11,7 +13,13 @@ motor_in1 = 19
 motor_in2 = 26
 motor_in3 = 20
 motor_in4 = 21
-seg = deque([1,0,0,0])
+
+GPIO.setup(motor_in1, GPIO.OUT, initial=GPIO.LOW)
+GPIO.setup(motor_in2, GPIO.OUT, initial=GPIO.LOW)
+GPIO.setup(motor_in3, GPIO.OUT, initial=GPIO.LOW)
+GPIO.setup(motor_in4, GPIO.OUT, initial=GPIO.LOW)
+
+sig = deque([1,0,0,0])
 step = 400
 dir = 1
 
@@ -20,13 +28,10 @@ print("start")
 GPIO.setwarnings(False)
 
 def main():
+    print("main")
     motor_rotate()
 
 def motor_rotate():
-    GPIO.setup(motor_in1, GPIO.OUT, initial=GPIO.LOW)
-    GPIO.setup(motor_in2, GPIO.OUT, initial=GPIO.LOW)
-    GPIO.setup(motor_in3, GPIO.OUT, initial=GPIO.LOW)
-    GPIO.setup(motor_in4, GPIO.OUT, initial=GPIO.LOW)
 
     try:
         while 1:
