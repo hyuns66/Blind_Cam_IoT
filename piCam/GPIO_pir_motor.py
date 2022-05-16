@@ -49,9 +49,9 @@ def motor_rotate():
 
 def pir_detect():
     while True:
-        if GPIO.input(pirPin) == GPIO.LOW:  # 인체 감지되면
+        if GPIO.input(pir_signal) == GPIO.LOW:  # 인체 감지되면
             time.sleep(3)  # 3초 잠자기
-            if GPIO.input(pirPin) == GPIO.LOW:  # 인체 감지되면
+            if GPIO.input(pir_signal) == GPIO.LOW:  # 인체 감지되면
                 try:
                     while True:  # 카메라 켜고, 얼굴 인식하고, 사진 찍기
                         print("사람이 인식되었어요")
