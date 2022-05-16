@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val pathString = "noman"
+        val pathString = "man"
         val storage = Firebase.storage
         val storageReference = storage.reference
         val pathReference = storageReference.child(pathString)
