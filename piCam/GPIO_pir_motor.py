@@ -58,7 +58,7 @@ def pir_detect():
             else:  # 두 번째 인체 감지 안되면
                 print("사람이 업서용~")
         else:
-            sleep(1)
+            time.sleep(1)
             print("시작~~~!")
 
 if __name__ == "__main__":
