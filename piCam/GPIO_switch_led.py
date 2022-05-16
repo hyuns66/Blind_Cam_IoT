@@ -40,6 +40,7 @@ print("start")
 
 GPIO.setup(led, GPIO.OUT)
 GPIO.setup(sensor, GPIO.IN)
+GPIO.setwarnings(False)
 
 try:
     while True:
