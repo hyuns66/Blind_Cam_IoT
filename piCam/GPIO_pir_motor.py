@@ -6,9 +6,9 @@ from collections import deque
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
-# pir 센서 핀
-pir_signal = 17
-GPIO.setup(pir_signal, GPIO.IN, GPIO.PUD_UP)
+# 스위치 input 핀
+switch = 17
+GPIO.setup(switch, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 # 모터 핀
 motor_in1 = 19
@@ -31,7 +31,8 @@ GPIO.setwarnings(False)
 
 def main():
     # motor_rotate()
-    pir_detect()
+    switch_read()
+
 def motor_rotate():
 
     try:
@@ -60,6 +61,14 @@ def pir_detect():
         else:
             time.sleep(1)
             print("nooo,,,,,,,,,,,,,")
+
+def button_pressed_callback(channel):
+    print("Button pressed!")
+
+def switch_read():
+    while True:
+        GPIO.add_event_detect(BUTTON_GPIO, GPIO.FALLING,
+                              callback=button_pressed_callback, bouncetime=100)
 
 if __name__ == "__main__":
     main()
