@@ -33,6 +33,9 @@ import RPi.GPIO as GPIO
 import time
 import sys
 
+GPIO.setmode(GPIO.BCM)
+sensor = 22
+led = 23
 print("start")
 
 GPIO.setup(led, GPIO.OUT)
