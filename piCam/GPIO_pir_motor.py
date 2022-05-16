@@ -32,6 +32,8 @@ GPIO.setwarnings(False)
 def main():
     # motor_rotate()
     switch_read()
+    while True:
+        sleep(1)
 
 def motor_rotate():
 
