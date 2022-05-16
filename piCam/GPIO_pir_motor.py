@@ -130,19 +130,9 @@ def button_pressed_callback(channel):
 
         if len(faces) > 0:
             motor_rotate()
-            sys.exit(0)
-
-        # 인식된 얼굴에 사각형을 출력한다
-        for (x, y, w, h) in faces:
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
-
-        # 화면에 출력한다
-        cv2.imshow('frame', frame)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
-    cap.release()
-    cv2.destroyAllWindows()
+            execute_camera()
+            cap.release()
+            cv2.destroyAllWindows()
 
 
 def set_switch_interrupt():
