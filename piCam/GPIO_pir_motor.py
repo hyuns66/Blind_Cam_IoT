@@ -130,11 +130,10 @@ def button_pressed_callback(channel):
         print(len(faces))
 
         if len(faces) > 0:
-            cap.release()
-            cv2.destroyAllWindows()
             motor_rotate()
             execute_camera()
-
+    cap.release()
+    cv2.destroyAllWindows()
 
 def set_switch_interrupt():
     GPIO.add_event_detect(switch, GPIO.FALLING,
