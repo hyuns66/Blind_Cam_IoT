@@ -68,9 +68,8 @@ def button_pressed_callback(channel):
     print("Button pressed!")
 
 def switch_read():
-    while True:
-        GPIO.add_event_detect(switch, GPIO.FALLING,
-                              callback=button_pressed_callback, bouncetime=100)
+    GPIO.add_event_detect(switch, GPIO.FALLING,
+                          callback=button_pressed_callback, bouncetime=100)
 
 if __name__ == "__main__":
     main()
