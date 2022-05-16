@@ -94,6 +94,7 @@ def fileUpload(file):
 
     blob.upload_from_filename(filename='pictures/'+file, content_type='image/jpeg')
     print(blob.public_url)
+    camera.close()
 
 def execute_camera():
     subtitle = "Ras"
