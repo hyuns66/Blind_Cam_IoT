@@ -22,7 +22,7 @@ GPIO.setup(motor_in3, GPIO.OUT, initial=GPIO.LOW)
 GPIO.setup(motor_in4, GPIO.OUT, initial=GPIO.LOW)
 
 sig = deque([1,0,0,0])
-step = 400
+step = 1200
 dir = 1
 
 print("start")
@@ -64,11 +64,30 @@ def pir_detect():
             print("nooo,,,,,,,,,,,,,")
 
 def button_pressed_callback(channel):
-    motor_rotate()
+    execute_camera()
 
-def switch_read():
+def set_switch_interrupt():
     GPIO.add_event_detect(switch, GPIO.FALLING,
                           callback=button_pressed_callback, bouncetime=100)
+
+# 파이어베이스에 사진 업로드
+def fileUpload(file):
+    blob = bucket.blob('man/'+file)
+    new_token = uuid4()
+    metadata = {"firebaseStorageDownloadTokens": new_token}
+    blob.metadata = metadata
+
+    blob.upload_from_filename(filename='pictures/'+file, content_type='image/jpeg')
+    print(blob.public_url)
+
+def execute_camera():
+    subtitle = "Ras"
+    suffix = datetime.datetime.now().strftime("%Y%m%d_%H%M%S") + '.jpg'
+    filename = "_".join([subtitle, suffix])
+
+    camera = PiCamera()
+    camera.capture('pictures/' + filename)
+    fileUpload(filename)
 
 if __name__ == "__main__":
     main()
