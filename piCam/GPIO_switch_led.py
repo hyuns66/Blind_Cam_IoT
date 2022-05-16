@@ -38,9 +38,9 @@ sensor = 22
 led = 23
 print("start")
 
+GPIO.setwarnings(False)
 GPIO.setup(led, GPIO.OUT)
 GPIO.setup(sensor, GPIO.IN)
-GPIO.setwarnings(False)
 
 try:
     while True:
