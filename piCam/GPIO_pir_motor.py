@@ -31,7 +31,7 @@ GPIO.setwarnings(False)
 
 def main():
     # motor_rotate()
-    switch_read()
+    set_switch_interrupt()
     while True:
         time.sleep(1)
 
