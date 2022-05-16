@@ -135,7 +135,7 @@ def button_pressed_callback(channel):
             suffix = datetime.datetime.now().strftime("%Y%m%d_%H%M%S") + '.jpg'
             filename = "_".join([subtitle, suffix])
 
-            cv2.imwrite('pictures/' + filename, img)
+            cv2.imwrite('pictures/' + filename, frame)
             fileUpload(filename)
 
     cap.release()
