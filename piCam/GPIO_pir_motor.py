@@ -51,15 +51,15 @@ def pir_detect():
     while True:
         if GPIO.input(pir_signal) == GPIO.LOW:  # 인체 감지되면
             time.sleep(3)  # 3초 잠자기
-            print("앗!!")
+            print("oh shit!!")
             if GPIO.input(pir_signal) == GPIO.LOW:  # 인체 감지되면
-                print("사람이 인식되었어요")
+                print("heyy~~~~~~~~")
                 time.sleep(1)  # 1초 잠자기
             else:  # 두 번째 인체 감지 안되면
-                print("사람이 업서용~")
+                print("bye~~~~~~~~")
         else:
             time.sleep(1)
-            print("시작~~~!")
+            print("nooo,,,,,,,,,,,,,")
 
 if __name__ == "__main__":
     main()
