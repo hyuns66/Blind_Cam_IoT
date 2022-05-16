@@ -130,7 +130,7 @@ def button_pressed_callback(channel):
 
         if len(faces) > 0:
             motor_rotate()
-            execute_camera(cap, frame)
+            execute_camera(frame)
             cap.release()
             cv2.destroyAllWindows()
 
@@ -149,12 +149,12 @@ def fileUpload(file):
     blob.upload_from_filename(filename='pictures/'+file, content_type='image/jpeg')
     print(blob.public_url)
 
-def execute_camera(cap, frame):
+def execute_camera(frame):
     subtitle = "Ras"
     suffix = datetime.datetime.now().strftime("%Y%m%d_%H%M%S") + '.jpg'
     filename = "_".join([subtitle, suffix])
 
-    cap.imwrite('pictures/' + filename, frame)
+    cv2.imwrite('pictures/' + filename, frame)
     fileUpload(filename)
 
 if __name__ == "__main__":
