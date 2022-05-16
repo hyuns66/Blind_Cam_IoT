@@ -34,27 +34,27 @@ import time
 import sys
 
 GPIO.setmode(GPIO.BCM)
-sensor = 22
-led = 23
+echo = 22
+trigger = 23
 print("start")
 
 GPIO.setwarnings(False)
-GPIO.setup(led, GPIO.OUT)
-GPIO.setup(sensor, GPIO.IN)
+GPIO.setup(trigger, GPIO.OUT)
+GPIO.setup(echo, GPIO.IN)
 
 try:
     while True:
         StartTime = time.time()
         StopTime = time.time()
-        GPIO.output(led, True)
+        GPIO.output(trigger, True)
         time.sleep(0.00001)
-        GPIO.output(led, False)
+        GPIO.output(trigger, False)
 
-    while GPIO.input(sensor) == 0:
+    while GPIO.input(echo) == 0:
         StartTime = time.time()
         print("asdf")
 
-    while GPIO.input(sensor) == 1:
+    while GPIO.input(echo) == 1:
         StartTime = time.time()
         print("fdas")
 
