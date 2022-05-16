@@ -7,6 +7,7 @@ import datetime
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import storage
+from firebase_admin import db
 from uuid import uuid4
 import numpy as np
 import cv2
@@ -17,9 +18,11 @@ PROJECT_ID = "iot-rpi-blind"
 
 cred = credentials.Certificate("./serviceAccountKey.json")
 default_app = firebase_admin.initialize_app(cred, {
-    'storageBucket': f"{PROJECT_ID}.appspot.com"
+    'storageBucket': f"{PROJECT_ID}.appspot.com",
+    'databaseURL' : "https://iot-rpi-blind-default-rtdb.firebaseio.com/"
 })
 bucket = storage.bucket()
+ref = db.reference()
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -83,45 +86,47 @@ def pir_detect():
 
 def button_pressed_callback(channel):
 
-    cap = cv2.VideoCapture(0)
-    cap.set(3, 640)  # WIDTH
-    cap.set(4, 480)  # HEIGHT
-    startTime = time.time()
-    curtime = time.time()
+    print(ref.get())
 
-    # 얼굴 인식 캐스케이드 파일 읽는다
-    face_cascade = cv2.CascadeClassifier('haarcascade_frontface.xml')
-
-    while (curtime-startTime < 10):
-        # frame 별로 capture 한다
-        ret, frame = cap.read()
-        time.sleep(0.001)
-        curtime = time.time()
-
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        faces = face_cascade.detectMultiScale(
-            gray,
-            scaleFactor=1.2,
-            minNeighbors=5,
-            minSize=(20, 20))
-
-        # 인식된 얼굴 갯수를 출력
-        print(len(faces))
-
-        if len(faces) > 0:
-            motor_rotate(1)
-            subtitle = "Ras"
-            suffix = datetime.datetime.now().strftime("%Y%m%d_%H%M%S") + '.jpg'
-            filename = "_".join([subtitle, suffix])
-
-            cv2.imwrite('pictures/' + filename, frame)
-            fileUpload(filename)
-            isGone(cap)
-            break
-
-    cap.release()
-    cv2.destroyAllWindows()
-    print("end!!")
+    # cap = cv2.VideoCapture(0)
+    # cap.set(3, 640)  # WIDTH
+    # cap.set(4, 480)  # HEIGHT
+    # startTime = time.time()
+    # curtime = time.time()
+    #
+    # # 얼굴 인식 캐스케이드 파일 읽는다
+    # face_cascade = cv2.CascadeClassifier('haarcascade_frontface.xml')
+    #
+    # while (curtime-startTime < 10):
+    #     # frame 별로 capture 한다
+    #     ret, frame = cap.read()
+    #     time.sleep(0.001)
+    #     curtime = time.time()
+    #
+    #     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    #     faces = face_cascade.detectMultiScale(
+    #         gray,
+    #         scaleFactor=1.2,
+    #         minNeighbors=5,
+    #         minSize=(20, 20))
+    #
+    #     # 인식된 얼굴 갯수를 출력
+    #     print(len(faces))
+    #
+    #     if len(faces) > 0:
+    #         motor_rotate(1)
+    #         subtitle = "Ras"
+    #         suffix = datetime.datetime.now().strftime("%Y%m%d_%H%M%S") + '.jpg'
+    #         filename = "_".join([subtitle, suffix])
+    #
+    #         cv2.imwrite('pictures/' + filename, frame)
+    #         fileUpload(filename)
+    #         isGone(cap)
+    #         break
+    #
+    # cap.release()
+    # cv2.destroyAllWindows()
+    # print("end!!")
 
 def isGone(cap):
     cap.set(3, 640)  # WIDTH

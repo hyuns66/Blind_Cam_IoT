@@ -1,15 +1,21 @@
 package com.likefirst.iot_rpi_blind
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
@@ -23,6 +29,40 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val database = Firebase.database
+        val myRef = database.getReference("state")
+
+        myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                val value = dataSnapshot.value
+                when (value) {
+                    "closed" -> {
+                        binding.mainBlindStateTv.text = "닫힘"
+                        binding.mainBlindStateTv.setTextColor(Color.parseColor("#FF0000"))
+                        binding.mainBlindBtnTv.setOnClickListener {
+                            myRef.setValue("opened")
+                        }
+                    }
+                    "opened" -> {
+                        binding.mainBlindStateTv.text = "열림"
+                        binding.mainBlindStateTv.setTextColor(Color.parseColor("#00DB21"))
+                        binding.mainBlindBtnTv.setOnClickListener {
+                            myRef.setValue("closed")
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.d("DB cancled", "firebase_database error!!!!")
+                }
+            }
+        )
+
+
 
         val pathString = "man"
         val storage = Firebase.storage
