@@ -52,9 +52,11 @@ try:
 
     while GPIO.input(sensor) == 0:
         StartTime = time.time()
+        print("asdf")
 
     while GPIO.input(sensor) == 1:
         StartTime = time.time()
+        print("fdas")
 
     TimeElapsed = StopTime - StartTime
     distnace = round((TimeElapsed * 34300) / 2, 2)
