@@ -86,7 +86,7 @@ def pir_detect():
 
 def button_pressed_callback(channel):
 
-    print(ref.get())
+    print(ref.get()['state'])
 
     # cap = cv2.VideoCapture(0)
     # cap.set(3, 640)  # WIDTH
