@@ -94,7 +94,6 @@ def fileUpload(file):
 
     blob.upload_from_filename(filename='pictures/'+file, content_type='image/jpeg')
     print(blob.public_url)
-    camera.close()
 
 def execute_camera():
     subtitle = "Ras"
@@ -104,6 +103,7 @@ def execute_camera():
     camera = PiCamera()
     camera.capture('pictures/' + filename)
     fileUpload(filename)
+    camera.close()
 
 if __name__ == "__main__":
     main()
