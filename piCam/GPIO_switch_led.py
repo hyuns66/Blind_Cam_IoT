@@ -56,7 +56,7 @@ while True:
             StartTime = time.time()
 
         while GPIO.input(echo) == 1:
-            StartTime = time.time()
+            StopTime = time.time()
 
         TimeElapsed = StopTime - StartTime
         distance = round((TimeElapsed * 34300) / 2, 2)
