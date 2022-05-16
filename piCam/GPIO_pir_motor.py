@@ -131,7 +131,13 @@ def button_pressed_callback(channel):
 
         if len(faces) > 0:
             motor_rotate()
-            execute_camera()
+            subtitle = "Ras"
+            suffix = datetime.datetime.now().strftime("%Y%m%d_%H%M%S") + '.jpg'
+            filename = "_".join([subtitle, suffix])
+
+            cv2.imwrite('pictures/' + filename, img)
+            fileUpload(filename)
+
     cap.release()
     cv2.destroyAllWindows()
 
