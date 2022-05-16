@@ -117,6 +117,7 @@ def button_pressed_callback(channel):
     while (True):
         # frame 별로 capture 한다
         ret, frame = cap.read()
+        time.sleep(0.001)
 
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         faces = face_cascade.detectMultiScale(
