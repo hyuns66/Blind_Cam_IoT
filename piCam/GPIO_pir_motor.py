@@ -8,6 +8,8 @@ GPIO.setwarnings(False)
 
 # pir 센서 핀
 pir_signal = 17
+GPIO.setup(pir_signal, GPIO.IN, GPIO.PUD_UP)
+
 # 모터 핀
 motor_in1 = 19
 motor_in2 = 26
@@ -28,9 +30,8 @@ print("start")
 GPIO.setwarnings(False)
 
 def main():
-    print("main")
-    motor_rotate()
-
+    # motor_rotate()
+    pir_detect()
 def motor_rotate():
 
     try:
@@ -45,6 +46,21 @@ def motor_rotate():
 
     except KeyboardInterrupt:
         sys.exit(0)
+
+def pir_detect():
+    while True:
+        if GPIO.input(pirPin) == GPIO.LOW:  # 인체 감지되면
+            time.sleep(3)  # 3초 잠자기
+            if GPIO.input(pirPin) == GPIO.LOW:  # 인체 감지되면
+                try:
+                    while True:  # 카메라 켜고, 얼굴 인식하고, 사진 찍기
+                        print("사람이 인식되었어요")
+                        time.sleep(1)  # 1초 잠자기
+
+                except:  # 두 번째 인체 감지 안되면
+                    print("사람이 업서용~")
+            time.sleep(3)  # 3초 잠자기
+        time.sleep(3)  # 3초 잠자기
 
 if __name__ == "__main__":
     main()
