@@ -31,14 +31,12 @@
 
 import RPi.GPIO as GPIO
 import time
+import sys
 
-GPIO.setmode(GPIO.BCM)
-sensor = 22
-led = 23
 print("start")
 
 GPIO.setup(led, GPIO.OUT)
-GPIO.setup(switch, GPIO.IN)
+GPIO.setup(sensor, GPIO.IN)
 
 try:
     while True:
@@ -60,4 +58,4 @@ try:
     time.sleep(1)
 
 except KeyboardInterrupt:
-    pass
+    sys.exit(0)
