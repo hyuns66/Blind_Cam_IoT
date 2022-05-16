@@ -53,7 +53,7 @@ def main():
     while True:
         time.sleep(1)
 
-def motor_rotate():
+def motor_rotate(dir):
 
     try:
         for cnt in range(0, step):
@@ -82,42 +82,21 @@ def pir_detect():
             print("nooo,,,,,,,,,,,,,")
 
 def button_pressed_callback(channel):
-    # faceCascade = cv2.CascadeClassifier('haarcascade_frontface.xml')
-    # cap = cv2.VideoCapture(0)
-    # cap.set(3, 640)  # set Width
-    # cap.set(4, 480)  # set Height
-    # while True:
-    #     ret, img = cap.read()
-    #     # img = cv2.flip(img, -1)  # 상하반전
-    #     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    #     faces = faceCascade.detectMultiScale(
-    #         gray,
-    #         scaleFactor=1.2,
-    #         minNeighbors=5,
-    #         minSize=(20, 20)
-    #     )
-    #     for (x, y, w, h) in faces:
-    #         cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
-    #         roi_gray = gray[y:y + h, x:x + w]
-    #         roi_color = img[y:y + h, x:x + w]
-    #     cv2.imshow('video', img)  # video라는 이름으로 출력
-    #     k = cv2.waitKey(30) & 0xff
-    #     if k == 27:  # press 'ESC' to quit # ESC를 누르면 종료
-    #         break
-    # cap.release()
-    # cv2.destroyAllWindows()
 
     cap = cv2.VideoCapture(0)
     cap.set(3, 640)  # WIDTH
     cap.set(4, 480)  # HEIGHT
+    startTime = time.time()
+    curtime = time.time()
 
     # 얼굴 인식 캐스케이드 파일 읽는다
     face_cascade = cv2.CascadeClassifier('haarcascade_frontface.xml')
 
-    while (True):
+    while (curtime-startTime < 3):
         # frame 별로 capture 한다
         ret, frame = cap.read()
-        time.sleep(0.001)
+        sleep(0.001)
+        curtime = time.time()
 
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         faces = face_cascade.detectMultiScale(
@@ -130,16 +109,46 @@ def button_pressed_callback(channel):
         print(len(faces))
 
         if len(faces) > 0:
-            motor_rotate()
+            motor_rotate(1)
             subtitle = "Ras"
             suffix = datetime.datetime.now().strftime("%Y%m%d_%H%M%S") + '.jpg'
             filename = "_".join([subtitle, suffix])
 
             cv2.imwrite('pictures/' + filename, frame)
             fileUpload(filename)
+            isGone(cap)
+            break
 
     cap.release()
     cv2.destroyAllWindows()
+    print("end!!")
+
+def isGone(cap):
+    cap.set(3, 640)  # WIDTH
+    cap.set(4, 480)  # HEIGHT
+    startTime = time.time()
+    curtime = time.time()
+
+    # 얼굴 인식 캐스케이드 파일 읽는다
+    face_cascade = cv2.CascadeClassifier('haarcascade_frontface.xml')
+
+    while (curtime - startTime < 3):
+        # frame 별로 capture 한다
+        ret, frame = cap.read()
+        sleep(0.001)
+        curtime = time.time()
+
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        faces = face_cascade.detectMultiScale(
+            gray,
+            scaleFactor=1.2,
+            minNeighbors=5,
+            minSize=(20, 20))
+
+        if len(faces) > 0:
+            startTime = time.time
+
+    motor_rotate(-1)
 
 def set_switch_interrupt():
     GPIO.add_event_detect(switch, GPIO.FALLING,
