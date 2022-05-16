@@ -8,6 +8,9 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import storage
 from uuid import uuid4
+import numpy as np
+import cv2
+
 
 # 파이어베이스 프로젝트 연동
 PROJECT_ID = "iot-rpi-blind"
@@ -79,21 +82,30 @@ def pir_detect():
             print("nooo,,,,,,,,,,,,,")
 
 def button_pressed_callback(channel):
-    ret, frame = cap.read()  # 카메라 읽어오기
-    frame = cv2.flip(frame, -1)  # Flip camera vertically
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY())
-
-    cv2.imshow('frame', frame)  # 화면에 카메라 띄우기
-    cv2.imshow('gray', gray)
-    time.sleep(1)  # 1초 잠자기
-
-    # 사람 얼굴 인식 #사진 저장
-    faces = face_cascade.detectMultiScale(gray.scaleFactor = 1.4, minNeighbors = 5, minSize = (40, 40), maxSize(400,
-                                                                                                                400))
-
-    if len(faces):
-        if GPIO.input(pirPin) == GPIO.HIGH:
-            execute_camera()  # 캡쳐 후 Image파일에 업로드
+    faceCascade = cv2.CascadeClassifier('Cascades/haarcascade_frontalface_default.xml')
+    cap = cv2.VideoCapture(0)
+    cap.set(3, 640)  # set Width
+    cap.set(4, 480)  # set Height
+    while True:
+        ret, img = cap.read()
+        img = cv2.flip(img, -1)  # 상하반전
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        faces = faceCascade.detectMultiScale(
+            gray,
+            scaleFactor=1.2,
+            minNeighbors=5,
+            minSize=(20, 20)
+        )
+        for (x, y, w, h) in faces:
+            cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
+            roi_gray = gray[y:y + h, x:x + w]
+            roi_color = img[y:y + h, x:x + w]
+        cv2.imshow('video', img)  # video라는 이름으로 출력
+        k = cv2.waitKey(30) & 0xff
+        if k == 27:  # press 'ESC' to quit # ESC를 누르면 종료
+            break
+    cap.release()
+    cv2.destroyAllWindows()
 
 def set_switch_interrupt():
     GPIO.add_event_detect(switch, GPIO.FALLING,
