@@ -44,6 +44,8 @@ GPIO.setup(echo, GPIO.IN)
 
 while True:
     try:
+        StopTime = time.time()
+        StartTime = time.time()
         GPIO.output(trigger, False)
         time.sleep(0.5)
         GPIO.output(trigger, True)
@@ -52,11 +54,9 @@ while True:
 
         while GPIO.input(echo) == 0:
             StartTime = time.time()
-            print("asdf")
 
         while GPIO.input(echo) == 1:
             StartTime = time.time()
-            print("fdas")
 
         TimeElapsed = StopTime - StartTime
         distnace = round((TimeElapsed * 34300) / 2, 2)
