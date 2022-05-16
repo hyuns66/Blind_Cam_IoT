@@ -51,16 +51,12 @@ def pir_detect():
     while True:
         if GPIO.input(pir_signal) == GPIO.LOW:  # 인체 감지되면
             time.sleep(3)  # 3초 잠자기
+            print("앗!!")
             if GPIO.input(pir_signal) == GPIO.LOW:  # 인체 감지되면
-                try:
-                    while True:  # 카메라 켜고, 얼굴 인식하고, 사진 찍기
-                        print("사람이 인식되었어요")
-                        time.sleep(1)  # 1초 잠자기
-
-                except:  # 두 번째 인체 감지 안되면
-                    print("사람이 업서용~")
-            time.sleep(3)  # 3초 잠자기
-        time.sleep(3)  # 3초 잠자기
+                print("사람이 인식되었어요")
+                time.sleep(1)  # 1초 잠자기
+            else:  # 두 번째 인체 감지 안되면
+                print("사람이 업서용~")
 
 if __name__ == "__main__":
     main()
