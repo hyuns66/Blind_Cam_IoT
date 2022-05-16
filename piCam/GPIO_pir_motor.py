@@ -40,7 +40,7 @@ def motor_rotate():
                 GPIO.output(motor_in2, sig[1])
                 GPIO.output(motor_in3, sig[2])
                 GPIO.output(motor_in4, sig[3])
-                time.sleep(0.005)
+                time.sleep(0.002)
                 sig.rotate(dir)
 
     except KeyboardInterrupt:
