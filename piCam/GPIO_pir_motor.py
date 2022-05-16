@@ -146,7 +146,8 @@ def isGone(cap):
             minSize=(20, 20))
 
         if len(faces) > 0:
-            startTime = time.time
+            startTime = time.time()
+            curtime = time.time()
 
     motor_rotate(-1)
 
