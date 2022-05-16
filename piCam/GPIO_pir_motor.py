@@ -106,7 +106,7 @@ def button_pressed_callback(channel):
     #         break
     # cap.release()
     # cv2.destroyAllWindows()
-    
+
     cap = cv2.VideoCapture(0)
     cap.set(3, 640)  # WIDTH
     cap.set(4, 480)  # HEIGHT
@@ -119,7 +119,11 @@ def button_pressed_callback(channel):
         ret, frame = cap.read()
 
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+        faces = face_cascade.detectMultiScale(
+            gray,
+            scaleFactor=1.2,
+            minNeighbors=5,
+            minSize=(20, 20))
 
         # 인식된 얼굴 갯수를 출력
         print(len(faces))
