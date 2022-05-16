@@ -54,7 +54,8 @@ def main():
     # motor_rotate()
     set_switch_interrupt()
     while True:
-        time.sleep(1)
+        state = ref.get()['state']
+        print(state)
 
 def motor_rotate(dir):
 
@@ -86,47 +87,45 @@ def pir_detect():
 
 def button_pressed_callback(channel):
 
-    print(ref.get()['state'])
+    cap = cv2.VideoCapture(0)
+    cap.set(3, 640)  # WIDTH
+    cap.set(4, 480)  # HEIGHT
+    startTime = time.time()
+    curtime = time.time()
 
-    # cap = cv2.VideoCapture(0)
-    # cap.set(3, 640)  # WIDTH
-    # cap.set(4, 480)  # HEIGHT
-    # startTime = time.time()
-    # curtime = time.time()
-    #
-    # # 얼굴 인식 캐스케이드 파일 읽는다
-    # face_cascade = cv2.CascadeClassifier('haarcascade_frontface.xml')
-    #
-    # while (curtime-startTime < 10):
-    #     # frame 별로 capture 한다
-    #     ret, frame = cap.read()
-    #     time.sleep(0.001)
-    #     curtime = time.time()
-    #
-    #     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    #     faces = face_cascade.detectMultiScale(
-    #         gray,
-    #         scaleFactor=1.2,
-    #         minNeighbors=5,
-    #         minSize=(20, 20))
-    #
-    #     # 인식된 얼굴 갯수를 출력
-    #     print(len(faces))
-    #
-    #     if len(faces) > 0:
-    #         motor_rotate(1)
-    #         subtitle = "Ras"
-    #         suffix = datetime.datetime.now().strftime("%Y%m%d_%H%M%S") + '.jpg'
-    #         filename = "_".join([subtitle, suffix])
-    #
-    #         cv2.imwrite('pictures/' + filename, frame)
-    #         fileUpload(filename)
-    #         isGone(cap)
-    #         break
-    #
-    # cap.release()
-    # cv2.destroyAllWindows()
-    # print("end!!")
+    # 얼굴 인식 캐스케이드 파일 읽는다
+    face_cascade = cv2.CascadeClassifier('haarcascade_frontface.xml')
+
+    while (curtime-startTime < 10):
+        # frame 별로 capture 한다
+        ret, frame = cap.read()
+        time.sleep(0.001)
+        curtime = time.time()
+
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        faces = face_cascade.detectMultiScale(
+            gray,
+            scaleFactor=1.2,
+            minNeighbors=5,
+            minSize=(20, 20))
+
+        # 인식된 얼굴 갯수를 출력
+        print(len(faces))
+
+        if len(faces) > 0:
+            motor_rotate(1)
+            subtitle = "Ras"
+            suffix = datetime.datetime.now().strftime("%Y%m%d_%H%M%S") + '.jpg'
+            filename = "_".join([subtitle, suffix])
+
+            cv2.imwrite('pictures/' + filename, frame)
+            fileUpload(filename)
+            isGone(cap)
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
+    print("end!!")
 
 def isGone(cap):
     cap.set(3, 640)  # WIDTH
