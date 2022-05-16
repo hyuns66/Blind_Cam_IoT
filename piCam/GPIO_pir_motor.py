@@ -49,7 +49,6 @@ def motor_rotate():
 
 def pir_detect():
     while True:
-        print("시작~~~!")
         if GPIO.input(pir_signal) == GPIO.LOW:  # 인체 감지되면
             time.sleep(3)  # 3초 잠자기
             print("앗!!")
@@ -58,6 +57,9 @@ def pir_detect():
                 time.sleep(1)  # 1초 잠자기
             else:  # 두 번째 인체 감지 안되면
                 print("사람이 업서용~")
+        else:
+            sleep(1)
+            print("시작~~~!")
 
 if __name__ == "__main__":
     main()
