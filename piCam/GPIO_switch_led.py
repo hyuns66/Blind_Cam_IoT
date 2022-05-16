@@ -42,16 +42,16 @@ GPIO.setup(switch, GPIO.IN)
 
 try:
     while True:
-    StartTime = time.time()
-    StopTime = time.time()
-    GPIO.output(led, True)
-    time.sleep(0.00001)
-    GPIO.output(led, False)
+        StartTime = time.time()
+        StopTime = time.time()
+        GPIO.output(led, True)
+        time.sleep(0.00001)
+        GPIO.output(led, False)
 
-    while GPIO.input(switch) == 0:
+    while GPIO.input(sensor) == 0:
         StartTime = time.time()
 
-    while GPIO.input(switch) == 1:
+    while GPIO.input(sensor) == 1:
         StartTime = time.time()
 
     TimeElapsed = StopTime - StartTime
