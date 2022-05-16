@@ -92,7 +92,7 @@ def button_pressed_callback(channel):
     # 얼굴 인식 캐스케이드 파일 읽는다
     face_cascade = cv2.CascadeClassifier('haarcascade_frontface.xml')
 
-    while (curtime-startTime < 3):
+    while (curtime-startTime < 10):
         # frame 별로 capture 한다
         ret, frame = cap.read()
         time.sleep(0.001)
@@ -132,7 +132,7 @@ def isGone(cap):
     # 얼굴 인식 캐스케이드 파일 읽는다
     face_cascade = cv2.CascadeClassifier('haarcascade_frontface.xml')
 
-    while (curtime - startTime < 3):
+    while (curtime - startTime < 5):
         # frame 별로 capture 한다
         ret, frame = cap.read()
         sleep(0.001)
