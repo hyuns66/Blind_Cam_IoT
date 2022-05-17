@@ -111,6 +111,7 @@ def button_pressed_callback(channel):
     while (curtime-startTime < 10):
         # frame 별로 capture 한다
         ret, frame = cap.read()
+        frame = cv2.flip(frame, 0)
         time.sleep(0.001)
         curtime = time.time()
 
