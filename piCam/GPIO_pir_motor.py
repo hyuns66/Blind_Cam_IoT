@@ -44,11 +44,6 @@ GPIO.setup(motor_in4, GPIO.OUT, initial=GPIO.LOW)
 
 sig = deque([1,0,0,0])
 step = 1200
-dir = 1
-if ref.get()['state'] == "closed":
-    dir = 1
-else:
-    dir = -1
 
 print("start")
 
@@ -57,6 +52,11 @@ GPIO.setwarnings(False)
 def main():
     # motor_rotate()
     set_switch_interrupt()
+    dir = 1
+    if ref.get()['state'] == "closed":
+        dir = 1
+    else:
+        dir = -1
     while True:
         state = ref.get()['state']
         if dir == 1 and state == "opened":
