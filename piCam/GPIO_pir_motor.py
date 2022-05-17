@@ -50,20 +50,22 @@ print("start")
 GPIO.setwarnings(False)
 
 def main():
-    # motor_rotate()
-    set_switch_interrupt()
     dir = 1
     if ref.get()['state'] == "closed":
         dir = 1
+        clear_switch_interrupt()
     else:
         dir = -1
+        set_switch_interrupt()
     while True:
         state = ref.get()['state']
         if dir == 1 and state == "opened":
             motor_rotate(dir)
+            set_switch_interrupt()
             dir = -1
         elif dir == -1 and state == "closed":
             motor_rotate(dir)
+            clear_switch_interrupt()
             dir = 1
 
 
@@ -168,6 +170,9 @@ def isGone(cap):
 def set_switch_interrupt():
     GPIO.add_event_detect(switch, GPIO.FALLING,
                           callback=button_pressed_callback, bouncetime=100)
+
+def clear_switch_interrupt():
+    GPIO.remove_event_detect(switch)
 
 # 파이어베이스에 사진 업로드
 def fileUpload(file):
